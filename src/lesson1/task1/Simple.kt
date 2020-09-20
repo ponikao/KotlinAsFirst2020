@@ -66,9 +66,9 @@ fun main() {
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
-    val x1: Int = hours * 3600
-    val x2: Int = minutes * 60
-    return x1 + x2 + seconds
+    val hoursToSec: Int = hours * 3600
+    val minToSec: Int = minutes * 60
+    return hoursToSec + minToSec + seconds
 }
 
 /**
@@ -79,10 +79,10 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
-    val x1: Double = sagenes * 48 * 4.445 * 0.01
-    val x2: Double = arshins * 16 * 4.445 * 0.01
-    val x3: Double = vershoks * 4.445 * 0.01
-    return x1 + x2 + x3
+    val sagenesInMeters: Double = sagenes * 48 * 4.445 * 0.01
+    val arshinsInMeters: Double = arshins * 16 * 4.445 * 0.01
+    val vershoksInMeters: Double = vershoks * 4.445 * 0.01
+    return sagenesInMeters + arshinsInMeters + vershoksInMeters
 }
 
 /**
@@ -92,10 +92,10 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
 fun angleInRadian(deg: Int, min: Int, sec: Int): Double {
-    val x1: Double = deg * PI / 180
-    val x2: Double = min * PI / (60 * 180)
-    val x3: Double = sec * PI / (60 * 60 * 180)
-    return x1 + x2 + x3
+    val degInRad: Double = deg * PI / 180
+    val minInRad: Double = min * PI / (60 * 180)
+    val secInRad: Double = sec * PI / (60 * 60 * 180)
+    return degInRad + minInRad + secInRad
 }
 
 /**
@@ -118,8 +118,8 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
 fun thirdDigit(number: Int): Int {
-    val x1: Int = number / 100
-    return x1 % 10
+    val shortNum: Int = number / 100
+    return shortNum % 10
 }
 
 /**
