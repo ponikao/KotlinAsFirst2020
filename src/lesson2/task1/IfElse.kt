@@ -181,8 +181,6 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
         a !in c..d && b !in c..d && c !in a..b -> -1
         c == b || a == d -> 0
-        a == c -> min(b, d) - a
-        d == b -> b - max(a, c)
         else -> min(d, b) - max(a, c)
 
     }
