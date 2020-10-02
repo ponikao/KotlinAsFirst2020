@@ -71,12 +71,12 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    val lastNum: Int = age % 10
+    val lastDigit = age % 10
+    val lastTwoDigits = age % 100
     return when {
-        lastNum == 1 && age != 11 && age != 111 -> "$age год"
-        lastNum in 2..4 && age !in 12..14 && age !in 112..114 -> "$age года"
-        else
-        -> "$age лет"
+        lastDigit == 1 && lastTwoDigits != 11 -> "$age год"
+        lastDigit in 2..4 && lastTwoDigits !in 12..14 -> "$age года"
+        else -> "$age лет"
     }
 }
 
@@ -117,10 +117,12 @@ fun whichRookThreatens(
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
 ): Int {
+    val rook1Threat = kingX == rookX1 || kingY == rookY1
+    val rook2Threat = kingX == rookX2 || kingY == rookY2
     return when {
-        (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> 3
-        kingX == rookX1 || kingY == rookY1 -> 1
-        kingX == rookX2 || kingY == rookY2 -> 2
+        rook1Threat && rook2Threat -> 3
+        rook1Threat -> 1
+        rook2Threat -> 2
         else -> 0
     }
 }
@@ -141,14 +143,12 @@ fun rookOrBishopThreatens(
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
 ): Int {
-    fun modulus(a: Int, b: Int): Int {
-        val length: Int = b - a
-        return abs(length)
-    }
+    val rookThreat = kingX == rookX || kingY == rookY
+    val bishopThreat = abs(kingX - bishopX) == abs(kingY - bishopY)
     return when {
-        (kingX == rookX || kingY == rookY) && (modulus(kingX, bishopX) == modulus(kingY, bishopY)) -> 3
-        modulus(kingX, bishopX) == modulus(kingY, bishopY) -> 2
-        kingX == rookX || kingY == rookY -> 1
+        rookThreat && bishopThreat -> 3
+        bishopThreat -> 2
+        rookThreat -> 1
         else -> 0
     }
 }
@@ -172,17 +172,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if (a - b == 0 || c - d == 0) {
-        return when {
-            a in c..d || c in a..b -> 0
-            else -> -1
-        }
-    }
     return when {
         a !in c..d && b !in c..d && c !in a..b -> -1
-        c == b || a == d -> 0
         else -> min(d, b) - max(a, c)
-
     }
-
 }

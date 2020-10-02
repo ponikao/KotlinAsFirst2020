@@ -76,11 +76,9 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    fun big(a: Int, b: Int, c: Int): Int = if (a > b) max(a, c) else max(b, c)
-    fun small(a: Int, b: Int, c: Int): Int = if (a < b) min(a, c) else min(b, c)
-    val middle: Int = a + b + c - big(a, b, c) - small(a, b, c)
+    fun medianOf(a: Int, b: Int, c: Int): Int = a + b + c - maxOf(a, b, c) - minOf(a, b, c)
     return when {
-        max(r, s) >= middle && min(r, s) >= small(a, b, c) -> true
+        max(r, s) >= medianOf(a, b, c) && min(r, s) >= minOf(a, b, c) -> true
         else -> false
     }
 }
