@@ -2,10 +2,7 @@
 
 package lesson3.task1
 
-import kotlin.math.sqrt
-import kotlin.math.min
-import kotlin.math.max
-import kotlin.math.pow
+import kotlin.math.*
 
 
 // Урок 3: циклы
@@ -78,7 +75,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var count = 0
-    var number = n
+    var number = abs(n)
     do {
         count++
         number /= 10
@@ -93,10 +90,17 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    return when {
-        (n <= 2) -> 1
-        else -> fib(n - 1) + fib(n - 2)
+    var count = 2
+    var first = 1
+    var second = 1
+    if (n <= 2) return 1
+    while (count != n) {
+        count++
+        val data = second
+        second += first
+        first = data
     }
+    return second
 }
 
 /**
@@ -186,7 +190,6 @@ fun lcm(m: Int, n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    if (n < 2 || m < 2) return false
     for (i in 2..min(m, n)) {
         if (m % i == 0 && n % i == 0) return false
     }
