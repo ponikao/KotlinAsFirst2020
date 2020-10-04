@@ -169,13 +169,13 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var a = min(m, n)
-    var b = max(m, n)
+    var min = min(m, n)
+    var max = max(m, n)
     var k = m * n
-    for (i in 2..a) {
-        while (a % i == 0 && b % i == 0) {
-            a /= i
-            b /= i
+    for (i in 2..min) {
+        while (min % i == 0 && max % i == 0) {
+            min /= i
+            max /= i
             k /= i
         }
     }
@@ -281,18 +281,18 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var p = 0
+    var digit = 0
     var number = 0
     for (i in 1..n) {
         for (l in digitNumber(i * i) downTo 1) {
-            p = i * i / 10.0.pow(l - 1).toInt()
-            p %= 10
+            digit = i * i / 10.0.pow(l - 1).toInt()
+            digit %= 10
             number++
             if (number == n) break
         }
         if (number == n) break
     }
-    return p
+    return digit
 }
 
 /**
@@ -305,17 +305,17 @@ fun squareSequenceDigit(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var p = 0
+    var digit = 0
     var number = 0
     for (i in 1..n) {
         for (l in digitNumber(fib(i)) downTo 1) {
-            p = fib(i) / 10.0.pow(l - 1).toInt()
-            p %= 10
+            digit = fib(i) / 10.0.pow(l - 1).toInt()
+            digit %= 10
             number++
             if (number == n) break
         }
         if (number == n) break
     }
-    return p
+    return digit
 }
 
