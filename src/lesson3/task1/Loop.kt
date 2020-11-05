@@ -110,7 +110,7 @@ fun fib(n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var divisor = n
-    for (m in 2..n / 2) {
+    for (m in 2..sqrt(n.toDouble()).toInt()) {
         if (n % m == 0) {
             divisor = m
             break
@@ -126,7 +126,7 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var divisor = 1
-    for (m in n / 2 downTo 2) {
+    for (m in n / 2 downTo sqrt(n.toDouble()).toInt()) {
         if (n % m == 0) {
             divisor = m
             break
@@ -169,17 +169,13 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var min = min(m, n)
-    var max = max(m, n)
-    var k = m * n
-    for (i in 2..min) {
-        while (min % i == 0 && max % i == 0) {
-            min /= i
-            max /= i
-            k /= i
-        }
+    var a = m
+    var b = n
+    while (a != 0 && b != 0) {
+        if (a > b) a %= b
+        else b %= a
     }
-    return k
+    return abs(m * n) / (a + b)
 }
 
 /**
@@ -190,10 +186,13 @@ fun lcm(m: Int, n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    for (i in 2..min(m, n)) {
-        if (m % i == 0 && n % i == 0) return false
+    var a = m
+    var b = n
+    while (a != 0 && b != 0) {
+        if (a > b) a %= b
+        else b %= a
     }
-    return true
+    return (a + b == 1)
 }
 
 /**
