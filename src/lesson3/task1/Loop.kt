@@ -124,16 +124,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var divisor = 1
-    for (m in n / 2 downTo sqrt(n.toDouble()).toInt()) {
-        if (n % m == 0) {
-            divisor = m
-            break
-        }
-    }
-    return divisor
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая (2 балла)
@@ -175,7 +166,7 @@ fun lcm(m: Int, n: Int): Int {
         if (a > b) a %= b
         else b %= a
     }
-    return abs(m * n) / (a + b)
+    return m / (a + b) * n
 }
 
 /**
@@ -185,15 +176,7 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    var a = m
-    var b = n
-    while (a != 0 && b != 0) {
-        if (a > b) a %= b
-        else b %= a
-    }
-    return (a + b == 1)
-}
+fun isCoPrime(m: Int, n: Int): Boolean = (m * n / lcm(m, n) == 1)
 
 /**
  * Средняя (3 балла)

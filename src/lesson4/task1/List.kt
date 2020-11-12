@@ -3,7 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
-import kotlin.math.sqrt
+import kotlin.math.*
 
 // Урок 4: списки
 // Максимальное количество баллов = 12
@@ -195,7 +195,16 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    val result = mutableListOf<Int>()
+    var number = n
+    do {
+        result.add(0, number % base)
+        number /= base
+    } while (number > 0)
+    return result
+}
+
 
 /**
  * Сложная (4 балла)
@@ -208,7 +217,23 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    val letter = listOf(
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+    )
+    val list = convert(n, base)
+    var result = ""
+    for (element in list) {
+        if (element < 10) {
+            result += element.toString()
+            continue
+        }
+        result += letter[element - 10]
+    }
+    return result
+}
+
 
 /**
  * Средняя (3 балла)
@@ -241,7 +266,21 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val arab = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val roman = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    var result = ""
+    var number = n
+    var i = 0
+    while (number > 0) {
+        while (arab[i] <= number) {
+            result += roman[i]
+            number -= arab[i]
+        }
+        i++
+    }
+    return result
+}
 
 /**
  * Очень сложная (7 баллов)
@@ -250,4 +289,42 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val units = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "одна", "две")
+    val dozens = listOf(
+        "", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"
+    )
+    val exception = listOf(
+        "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать",
+        "восемнадцать", "девятнадцать"
+    )
+    val hundreds = listOf(
+        "", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"
+    )
+
+    fun conversion(number: Int, check: Boolean): String {
+        val last = number % 10
+        val twoLast = number % 100
+        var result = ""
+        if (number < 1) return result
+        if (number > 99) result += hundreds[number / 100] + " "
+        if (twoLast > 19) result += dozens[number / 10 % 10] + " "
+        if (twoLast in 10..19) result += exception[last] + " "
+        else if (last in 1..9) {
+            result += when {
+                last == 1 && check -> units[10] + " "
+                last == 2 && check -> units[11] + " "
+                else -> units[last] + " "
+            }
+        }
+        if (check) {
+            result += when {
+                last == 1 && twoLast != 11 -> "тысяча "
+                last in 2..4 && twoLast !in 12..14 -> "тысячи "
+                else -> "тысяч "
+            }
+        }
+        return result
+    }
+    return (conversion(n / 1000, true) + conversion(n % 1000, false)).trim()
+}
