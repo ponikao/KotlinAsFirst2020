@@ -162,7 +162,21 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    var price = -1.0
+    var result = ""
+    val signs = description.split("; ")
+    if (description.matches(Regex(""""""))) return ""
+    for (i in signs) {
+        val product = i.split(" ")
+        if (product[1].toDouble() > price) {
+            price = product[1].toDouble()
+            result = product[0]
+        }
+    }
+    return result
+}
+
 
 /**
  * Сложная (6 баллов)
@@ -175,7 +189,24 @@ fun mostExpensive(description: String): String = TODO()
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int {
+    if (Regex("""[IVXLCDM]+""").matches(roman)) {
+        return roman
+            .replace("M", "DD")
+            .replace("CM", "DCD")
+            .replace("CD", "CCCC")
+            .replace("D", "CCCCC")
+            .replace("C", "LL")
+            .replace("XC", "LXL")
+            .replace("XL", "XXXX")
+            .replace("L", "XXXXX")
+            .replace("IX", "VIV")
+            .replace("X", "VV")
+            .replace("IV", "IIII")
+            .replace("V", "IIIII").length
+    }
+    return -1
+}
 
 /**
  * Очень сложная (7 баллов)
