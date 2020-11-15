@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import kotlin.math.max
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -277,7 +279,16 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    val map = mutableMapOf<Int, Int>()
+    for ((i, j) in list.withIndex()) {
+        val num = map[number - j]
+        if (num != null)
+            return Pair(num, i)
+        map[j] = i
+    }
+    return Pair(-1, -1)
+}
 
 /**
  * Очень сложная (8 баллов)
@@ -300,4 +311,32 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
+    val items = mutableListOf<String>()
+    val weights = mutableListOf<Int>()
+    val values = mutableListOf<Int>()
+    val res = mutableSetOf<String>()
+    for ((item, parameters) in treasures) {
+        items += item
+        weights += parameters.first
+        values += parameters.second
+    }
+    val data = Array(items.size + 1) { Array(capacity + 1) { 0 } }
+    for (i in 1..items.size) {
+        for (j in 1..capacity) {
+            if (j >= weights[i - 1])
+                data[i][j] = max(data[i - 1][j], data[i - 1][j - weights[i - 1]] + values[i - 1])
+            else data[i][j] = data[i - 1][j]
+        }
+    }
+    fun result(i: Int, j: Int) {
+        if (data[i][j] == 0) return
+        if (data[i - 1][j] == data[i][j]) result(i - 1, j)
+        else {
+            result(i - 1, j - weights[i - 1])
+            res += items[i - 1]
+        }
+    }
+    result(items.size, capacity)
+    return res
+}
