@@ -160,7 +160,7 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 
-fun evklid(m:Int, n: Int): Int {
+fun evklid(m: Int, n: Int): Int {
     var res = 1
     var a = m
     var b = n
@@ -172,7 +172,7 @@ fun evklid(m:Int, n: Int): Int {
     return res
 }
 
-fun lcm(m: Int, n: Int): Int = m * n / evklid(m, n)
+fun lcm(m: Int, n: Int): Int = m / evklid(m, n) * n
 
 
 /**
