@@ -218,10 +218,6 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String {
-    val letter = listOf(
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-    )
     val list = convert(n, base)
     var result = ""
     for (element in list) {
@@ -229,7 +225,7 @@ fun convertToString(n: Int, base: Int): String {
             result += element.toString()
             continue
         }
-        result += letter[element - 10]
+        result += 'a' + element - 10
     }
     return result
 }
@@ -289,42 +285,42 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String {
-    val units = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "одна", "две")
-    val dozens = listOf(
-        "", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"
-    )
-    val exception = listOf(
-        "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать",
-        "восемнадцать", "девятнадцать"
-    )
-    val hundreds = listOf(
-        "", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"
-    )
+val units = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "одна", "две")
+val dozens = listOf(
+    "", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"
+)
+val exception = listOf(
+    "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать",
+    "восемнадцать", "девятнадцать"
+)
+val hundreds = listOf(
+    "", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"
+)
 
-    fun conversion(number: Int, check: Boolean): String {
+fun russian(n: Int): String {
+    fun conversion(number: Int, check: Boolean): List<String> {
         val last = number % 10
         val twoLast = number % 100
-        var result = ""
+        val result = mutableListOf<String>()
         if (number < 1) return result
-        if (number > 99) result += hundreds[number / 100] + " "
-        if (twoLast > 19) result += dozens[number / 10 % 10] + " "
-        if (twoLast in 10..19) result += exception[last] + " "
+        if (number > 99) result.add(hundreds[number / 100])
+        if (twoLast > 19) result.add(dozens[number / 10 % 10])
+        if (twoLast in 10..19) result.add(exception[last])
         else if (last in 1..9) {
-            result += when {
-                last == 1 && check -> units[10] + " "
-                last == 2 && check -> units[11] + " "
-                else -> units[last] + " "
+            when {
+                last == 1 && check -> result.add(units[10])
+                last == 2 && check -> result.add(units[11])
+                else -> result.add(units[last])
             }
         }
         if (check) {
-            result += when {
-                last == 1 && twoLast != 11 -> "тысяча "
-                last in 2..4 && twoLast !in 12..14 -> "тысячи "
-                else -> "тысяч "
+            when {
+                last == 1 && twoLast != 11 -> result.add("тысяча")
+                last in 2..4 && twoLast !in 12..14 -> result.add("тысячи")
+                else -> result.add("тысяч")
             }
         }
         return result
     }
-    return (conversion(n / 1000, true) + conversion(n % 1000, false)).trim()
+    return (conversion(n / 1000, true) + conversion(n % 1000, false)).joinToString(separator = " ")
 }
