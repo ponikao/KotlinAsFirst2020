@@ -165,14 +165,17 @@ fun firstDuplicateIndex(str: String): Int = TODO()
 fun mostExpensive(description: String): String {
     var price = -1.0
     var result = ""
-    val signs = description.split("; ")
-    if (description.matches(Regex(""""""))) return ""
-    for (i in signs) {
-        val product = i.split(" ")
-        if (product[1].toDouble() > price) {
-            price = product[1].toDouble()
-            result = product[0]
+    val parts = description.split("; ")
+    try {
+        for (part in parts) {
+            val product = part.split(" ")
+            if (product[1].toDouble() > price) {
+                price = product[1].toDouble()
+                result = product[0]
+            }
         }
+    } catch (e: Exception) {
+        return ""
     }
     return result
 }
@@ -189,23 +192,23 @@ fun mostExpensive(description: String): String {
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
+val mapRomanArab = mapOf('M' to 1000, 'D' to 500, 'C' to 100, 'L' to 50, 'X' to 10, 'V' to 5, 'I' to 1)
+
 fun fromRoman(roman: String): Int {
-    if (Regex("""[IVXLCDM]+""").matches(roman)) {
-        return roman
-            .replace("M", "DD")
-            .replace("CM", "DCD")
+    var result = 0
+    return if (Regex("""(M{0,3})(CM|DC{0,3}|CD|C{0,3})?(XC|LX{0,3}|XL|X{0,3})?(IX|VI{0,3}|IV|I{0,3})?""").matches(roman) && roman.isNotEmpty()) {
+        val line = roman
+            .replace("CM", "DCCCC")
             .replace("CD", "CCCC")
-            .replace("D", "CCCCC")
-            .replace("C", "LL")
-            .replace("XC", "LXL")
+            .replace("XC", "LXXXX")
             .replace("XL", "XXXX")
-            .replace("L", "XXXXX")
-            .replace("IX", "VIV")
-            .replace("X", "VV")
+            .replace("IX", "VIIII")
             .replace("IV", "IIII")
-            .replace("V", "IIIII").length
-    }
-    return -1
+        for (char in line) {
+            result += mapRomanArab[char] ?: 0
+        }
+        result
+    } else -1
 }
 
 /**
