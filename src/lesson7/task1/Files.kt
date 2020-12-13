@@ -63,7 +63,14 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    TODO()
+    File(outputName).bufferedWriter().use {
+        File(inputName).forEachLine { line ->
+            if (!line.startsWith("_")) {
+                it.write(line)
+                it.newLine()
+            }
+        }
+    }
 }
 
 /**
@@ -75,7 +82,23 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val result = mutableMapOf<String, Int>()
+    val substringsSet = mutableSetOf<String>()
+    for (string in substrings) {
+        result[string] = 0
+    }
+    substringsSet.addAll(substrings)
+    for (line in File(inputName).readLines()) {
+        for (string in substringsSet) {
+            for (i in 0..line.length - string.length) {
+                if (line.substring(i, i + string.length).toLowerCase().contains(string.toLowerCase()))
+                    result[string] = result[string]!! + 1
+            }
+        }
+    }
+    return result
+}
 
 
 /**
@@ -113,9 +136,17 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    var max = 0
+    for (line in File(inputName).readLines()) {
+        if (line.length > max)
+            max = line.trim().length
+    }
+    val writer = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines()){
+        writer.appendLine(" ".repeat((max - line.trim().length) / 2) + line.trim())
+    }
+    writer.close()
 }
-
 /**
  * Сложная (20 баллов)
  *
