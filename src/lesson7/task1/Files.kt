@@ -142,11 +142,12 @@ fun centerFile(inputName: String, outputName: String) {
             max = line.trim().length
     }
     val writer = File(outputName).bufferedWriter()
-    for (line in File(inputName).readLines()){
+    for (line in File(inputName).readLines()) {
         writer.appendLine(" ".repeat((max - line.trim().length) / 2) + line.trim())
     }
     writer.close()
 }
+
 /**
  * Сложная (20 баллов)
  *
@@ -299,15 +300,15 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  *
  * Соответствующий выходной файл:
 <html>
-    <body>
-        <p>
-            Lorem ipsum <i>dolor sit amet</i>, consectetur <b>adipiscing</b> elit.
-            Vestibulum lobortis. <s>Est vehicula rutrum <i>suscipit</i></s>, ipsum <s>lib</s>ero <i>placerat <b>tortor</b></i>.
-        </p>
-        <p>
-            Suspendisse <s>et elit in enim tempus iaculis</s>.
-        </p>
-    </body>
+<body>
+<p>
+Lorem ipsum <i>dolor sit amet</i>, consectetur <b>adipiscing</b> elit.
+Vestibulum lobortis. <s>Est vehicula rutrum <i>suscipit</i></s>, ipsum <s>lib</s>ero <i>placerat <b>tortor</b></i>.
+</p>
+<p>
+Suspendisse <s>et elit in enim tempus iaculis</s>.
+</p>
+</body>
 </html>
  *
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
@@ -350,65 +351,65 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
  *
  * Пример входного файла:
 ///////////////////////////////начало файла/////////////////////////////////////////////////////////////////////////////
-* Утка по-пекински
-    * Утка
-    * Соус
-* Салат Оливье
-    1. Мясо
-        * Или колбаса
-    2. Майонез
-    3. Картофель
-    4. Что-то там ещё
-* Помидоры
-* Фрукты
-    1. Бананы
-    23. Яблоки
-        1. Красные
-        2. Зелёные
+ * Утка по-пекински
+ * Утка
+ * Соус
+ * Салат Оливье
+1. Мясо
+ * Или колбаса
+2. Майонез
+3. Картофель
+4. Что-то там ещё
+ * Помидоры
+ * Фрукты
+1. Бананы
+23. Яблоки
+1. Красные
+2. Зелёные
 ///////////////////////////////конец файла//////////////////////////////////////////////////////////////////////////////
  *
  *
  * Соответствующий выходной файл:
 ///////////////////////////////начало файла/////////////////////////////////////////////////////////////////////////////
 <html>
-  <body>
-    <p>
-      <ul>
-        <li>
-          Утка по-пекински
-          <ul>
-            <li>Утка</li>
-            <li>Соус</li>
-          </ul>
-        </li>
-        <li>
-          Салат Оливье
-          <ol>
-            <li>Мясо
-              <ul>
-                <li>Или колбаса</li>
-              </ul>
-            </li>
-            <li>Майонез</li>
-            <li>Картофель</li>
-            <li>Что-то там ещё</li>
-          </ol>
-        </li>
-        <li>Помидоры</li>
-        <li>Фрукты
-          <ol>
-            <li>Бананы</li>
-            <li>Яблоки
-              <ol>
-                <li>Красные</li>
-                <li>Зелёные</li>
-              </ol>
-            </li>
-          </ol>
-        </li>
-      </ul>
-    </p>
-  </body>
+<body>
+<p>
+<ul>
+<li>
+Утка по-пекински
+<ul>
+<li>Утка</li>
+<li>Соус</li>
+</ul>
+</li>
+<li>
+Салат Оливье
+<ol>
+<li>Мясо
+<ul>
+<li>Или колбаса</li>
+</ul>
+</li>
+<li>Майонез</li>
+<li>Картофель</li>
+<li>Что-то там ещё</li>
+</ol>
+</li>
+<li>Помидоры</li>
+<li>Фрукты
+<ol>
+<li>Бананы</li>
+<li>Яблоки
+<ol>
+<li>Красные</li>
+<li>Зелёные</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</p>
+</body>
 </html>
 ///////////////////////////////конец файла//////////////////////////////////////////////////////////////////////////////
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
@@ -435,23 +436,23 @@ fun markdownToHtml(inputName: String, outputName: String) {
  * Вывести в выходной файл процесс умножения столбиком числа lhv (> 0) на число rhv (> 0).
  *
  * Пример (для lhv == 19935, rhv == 111):
-   19935
-*    111
+19935
+ *    111
 --------
-   19935
+19935
 + 19935
 +19935
 --------
- 2212785
+2212785
  * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
  * Нули в множителе обрабатывать так же, как и остальные цифры:
-  235
-*  10
+235
+ *  10
 -----
-    0
+0
 +235
 -----
- 2350
+2350
  *
  */
 fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
@@ -465,16 +466,16 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  * Вывести в выходной файл процесс деления столбиком числа lhv (> 0) на число rhv (> 0).
  *
  * Пример (для lhv == 19935, rhv == 22):
-  19935 | 22
- -198     906
- ----
-    13
-    -0
-    --
-    135
-   -132
-   ----
-      3
+19935 | 22
+-198     906
+----
+13
+-0
+--
+135
+-132
+----
+3
 
  * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
  *
@@ -483,3 +484,94 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
 
+
+/**
+ * Есть файл, в котором схематично изображено поле для игры в крестики-нолики на доске 15х15, а именно:
+ * - 15 строк
+ * - в каждой строке строго 15 символов
+ * - пустая клетка обозначается -, крестик х, нолик о
+ *
+ * Функция, которую нужно написать, принимает как параметры имя этого файла и очередность хода (крестики или нолики).
+ * Необходимо определить, существует ли ход, приводящий эту сторону к победе
+ * (для этого нужно составить 5 своих знаков в ряд по вертикали, горизонтали или диагонали).
+ * Если он не существует, следует вернуть null, если существует — координаты клетки, куда нужно сходить.
+ *
+ * Необходимо написать функцию и тесты к ней.
+ */
+
+fun ticTacToe(inputName: String, move: Char): Pair<Int, Int>? {
+    val previousMove = if (move == 'x') 'o' else 'x'
+    val data = Array(15) { Array(15) { ' ' } }
+    var counter = 0
+    var counterTwo = 0
+    var coordinatesOne = Pair(0, 0)
+    var coordinatesTwo = Pair(0, 0)
+    var first: Char
+    var second: Char
+    for ((i, line) in File(inputName).readLines().withIndex()) {
+        if (i > 14 || line.length > 15 || !line.matches(Regex("""[ox-]+"""))) throw IllegalArgumentException()
+        for (j in 0..14) {
+            data[i][j] = line[j]
+            if (j in 4..14) {
+                for (a in 0..4) {
+                    if (data[i][j - a] == previousMove) counter++
+                    if (i in 4..14 && data[i - a][j - a] == previousMove) counterTwo++
+                }
+                if (counter == 5 || counterTwo == 5) return null
+                counter = 0
+                counterTwo = 0
+            }
+            if (i in 4..14) {
+                for (a in 0..4) {
+                    if (data[i - a][j] == previousMove) counter++
+                    if (j in 0..10 && data[i - a][j + a] == previousMove) counterTwo++
+                }
+                if (counter == 5 || counterTwo == 5) return null
+                counter = 0
+                counterTwo = 0
+            }
+        }
+    }
+    for (i in 0..14) {
+        for (j in 0..14) {
+            if (data[i][j] == previousMove) continue
+            if (j in 4..14) {
+                for (a in 0..4) {
+                    first = data[i][j - a]
+                    if (first == move) counter += 1
+                    if (first == previousMove) counter -= 10
+                    if (first == '-') coordinatesOne = Pair(i + 1, j - a + 1)
+                    if (i in 4..14) {
+                        second = data[i - a][j - a]
+                        if (second == move) counterTwo++
+                        if (second == previousMove) counterTwo -= 2
+                        if (second == '-') coordinatesTwo = Pair(i - a + 1, j - a + 1)
+                    }
+                }
+                if (counter == 4) return coordinatesOne
+                counter = 0
+                if (counterTwo == 4) return coordinatesTwo
+                counterTwo = 0
+            }
+            if (i in 4..14) {
+                for (a in 0..4) {
+                    first = data[i - a][j]
+                    if (first == move) counter += 1
+                    if (first == previousMove) counter -= 10
+                    if (first == '-') coordinatesOne = Pair(i - a + 1, j + 1)
+                    if (j in 0..10) {
+                        second = data[i - a][j + a]
+                        if (second == move) counterTwo += 1
+                        if (second == previousMove) counterTwo -= 10
+                        if (second == '-') coordinatesTwo = Pair(i - a + 1, j + a + 1)
+                    }
+                }
+                if (counter == 4) return coordinatesOne
+                counter = 0
+                if (counterTwo == 4) return coordinatesTwo
+                counterTwo = 0
+            }
+        }
+    }
+    return null
+}

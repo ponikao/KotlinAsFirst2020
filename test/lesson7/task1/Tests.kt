@@ -1,6 +1,7 @@
 package lesson7.task1
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -440,5 +441,18 @@ Basic, Ruby, Swift.
         )
 
         File("temp.txt").delete()
+    }
+
+    @Test
+    fun ticTacToe() {
+        assertEquals(Pair(11, 10), ticTacToe("input/checkX1.txt", 'x'))
+        assertEquals(Pair(8, 7), ticTacToe("input/checkX2.txt", 'x'))
+        assertEquals(Pair(7, 5), ticTacToe("input/checkX3.txt", 'x'))
+        assertEquals(Pair(5, 12), ticTacToe("input/checkO1.txt", 'o'))
+        assertEquals(Pair(14, 5), ticTacToe("input/checkO2.txt", 'o'))
+        assertEquals(Pair(9, 6), ticTacToe("input/checkO3.txt", 'o'))
+        assertEquals(null, ticTacToe("input/checkNull.txt", 'x'))
+        assertEquals(null, ticTacToe("input/checkNull1.txt", 'x'))
+        assertThrows(IllegalArgumentException::class.java) { ticTacToe("input/checkError.txt", 'x') }
     }
 }
